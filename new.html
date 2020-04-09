@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>loading</title>
+
+  <style>
+    body {
+      height: 50vh;
+      background: #3E423A;
+      color:white;
+    }
+
+    .circle__svg {
+      transform: rotate(-90deg);
+    }
+
+    .progress {
+      --strokeWidth:8;
+      fill: none;
+      stroke-width: var(--strokeWidth);
+      stroke-opacity: 0.3;
+      stroke-linecap: round;
+      stroke: #AAFF00;
+    }
+
+    .progress--fill {
+      stroke-opacity: 1;
+      stroke: #AAFF00;
+    }
+
+  </style>
+</head>
+<body>
+    <div onclick="small()">点我变细变小，点绿圈停止</div>
+      <svg id="ccc"  width="100" height="100" class="circle__svg" onclick="javascript:this.animationsPaused()?this.unpauseAnimations():this.pauseAnimations()" >
+        <circle id="c1" cx="41" cy="41" r="35"  class="progress progress--path"/>
+        <circle id="c2" cx="41" cy="41" r="35" stroke-dasharray="238"  class="progress progress--fill">
+            <animate
+              id="anim"
+              attributeName="stroke-dashoffset"
+              attributeType="XML"
+              from="238"
+              to="0"
+              dur="2s"
+              repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <script>
+        function small(){
+            const Radius = 30; 
+            const Slim = 5; 
+
+            c1.setAttribute('r',Radius)
+            c2.setAttribute('r',Radius)
+            c1.style.setProperty('--strokeWidth', Slim)
+            c2.style.setProperty('--strokeWidth', Slim)
+            
+            const from = 2 * Math.PI * Radius;
+            anim.setAttribute('from',from);
+            c2.setAttribute('stroke-dasharray',from)
+          }
+      </script>
+</body>
+</html>
